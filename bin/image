@@ -1,0 +1,17 @@
+#!/bin/bash -eu
+
+if [ "$#" -eq 0 ]; then
+  echo "Usage: $0 <file> [file...]"
+  exit 1
+fi
+
+for file in "$@"; do
+  type=$(file -b --mime-type "$file")
+
+  # contains image
+  if [[ $type == image/* ]]; then
+    continue
+  fi
+
+  echo "$file"
+done
